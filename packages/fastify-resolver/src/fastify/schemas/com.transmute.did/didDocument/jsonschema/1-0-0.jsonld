@@ -1,0 +1,68 @@
+{
+  "$schema": "https://did-key.transmute.org/schemas/com.transmute.self-desc/schema/jsonschema/1-0-0.jsonld#",
+  "self": {
+    "vendor": "com.transmute.did",
+    "name": "didDocument",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "publicKey": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "controller": { "type": "string" },
+          "publicKeyBase58": { "type": "string" }
+        }
+      }
+    },
+    "authentication": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assertionMethod": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilityDelegation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilityInvocation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keyAgreement": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "controller": { "type": "string" },
+          "publicKeyBase58": { "type": "string" }
+        }
+      }
+    }
+  },
+  "required": ["id"],
+  "additionalProperties": false
+}
