@@ -1,4 +1,5 @@
 {
+  "$id": "https://did-key.web.app/schemas/com.transmute.did/didDocument/jsonschema/1-0-0.jsonld#",
   "$schema": "https://did-key.web.app/schemas/com.transmute.self-desc/schema/jsonschema/1-0-0.jsonld#",
   "self": {
     "vendor": "com.transmute.did",

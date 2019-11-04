@@ -44,6 +44,7 @@ class DidKeyFastifyResolver {
 
     // Add routes
     app.register(require("./routes"), { prefix: "/" });
+
     this.fastify = app;
     this.handleRequest = handleRequest;
   }

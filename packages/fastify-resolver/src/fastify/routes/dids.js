@@ -10,8 +10,8 @@ module.exports = function(fastify, opts, done) {
     {
       schema: {
         description: "DIDs GET",
-        tags: ["dids"],
-        summary: "DID Key resolve endpoint",
+        tags: ["DID"],
+        summary: "Resolver Endpoint",
         params: {
           type: "object",
           properties: {
@@ -22,7 +22,7 @@ module.exports = function(fastify, opts, done) {
           }
         },
         response: {
-          200: schemas.rawSchemas.didDocument
+          200: schemas.all.didDocument.schema
         }
       }
     },

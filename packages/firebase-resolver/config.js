@@ -1,9 +1,8 @@
-const dotenv = require("dotenv");
-const path = require("path");
+const functions = require("firebase-functions");
 
-dotenv.config({ path: path.resolve(__dirname, "./firebase.env") });
+const firebaseConfig = functions.config().did_key;
+
 module.exports = {
-  port: process.env.PORT,
-  serverEnv: process.env.SERVER_ENV,
-  baseUrl: process.env.BASE_URL
+  serverEnv: firebaseConfig.server_env,
+  baseUrl: firebaseConfig.base_url
 };

@@ -14,6 +14,12 @@ const loadSchema = ({ vendor, name, format, version }) => {
 const loadAllSchemas = () => {
   // TODO: parse directory...
   return {
+    self: loadSchema({
+      vendor: "com.transmute.self-desc",
+      name: "schema",
+      format: "jsonschema",
+      version: "1-0-0"
+    }),
     didDocument: loadSchema({
       vendor: "com.transmute.did",
       name: "didDocument",
@@ -28,20 +34,23 @@ class SchemaManager {
     this.baseUrl = baseUrl;
     this.rawSchemas = loadAllSchemas();
     this.all = {};
+
     Object.keys(this.rawSchemas).forEach(key => {
       const schema = this.rawSchemas[key];
       let modifiedSchema = {
         ...schema,
         $schema: schema.$schema.replace("https://did-key.web.app", this.baseUrl)
       };
-      this.all[key] = modifiedSchema;
+      delete modifiedSchema.$id;
+      this.all[key] = {
+        name: key,
+        path: schema.$id
+          .replace("https://did-key.web.app/schemas", "")
+          .replace("#", ""),
+        schema: modifiedSchema
+      };
     });
-    // this.rewriteBaseUrl();
   }
-
-  // rewriteBaseUrl() {
-  //   this.all = {};
-  // }
 }
 
 module.exports = SchemaManager;
