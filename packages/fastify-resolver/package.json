@@ -1,6 +1,6 @@
 {
   "name": "@transmute/did-key-fastify-resolver",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "./src/index.js",
   "scripts": {

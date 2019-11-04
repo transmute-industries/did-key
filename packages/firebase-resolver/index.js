@@ -1,12 +1,14 @@
 const functions = require("firebase-functions");
-const {
-  fastify,
-  handleRequest
-} = require("@transmute/did-key-fastify-resolver");
+
+const DidKeyFastifyResolver = require("@transmute/did-key-fastify-resolver");
+
+const config = require("./config");
+
+const server = new DidKeyFastifyResolver(config);
 
 exports.main = functions.https.onRequest((req, res) => {
-  fastify.ready(err => {
+  server.fastify.ready(err => {
     if (err) throw err;
-    handleRequest({ ...req, ip: "" }, res);
+    server.handleRequest({ ...req, ip: "" }, res);
   });
 });

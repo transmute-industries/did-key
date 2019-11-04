@@ -32,10 +32,7 @@ class SchemaManager {
       const schema = this.rawSchemas[key];
       let modifiedSchema = {
         ...schema,
-        $schema: schema.$schema.replace(
-          "https://did-key.transmute.org",
-          this.baseUrl
-        )
+        $schema: schema.$schema.replace("https://did-key.web.app", this.baseUrl)
       };
       this.all[key] = modifiedSchema;
     });

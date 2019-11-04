@@ -1,7 +1,10 @@
-const { fastify } = require("./fastify");
+const DidKeyFastifyResolver = require("./index");
+
 const config = require("./config");
 
-fastify.listen(config.port, "0.0.0.0", (err, address) => {
+const server = new DidKeyFastifyResolver(config);
+
+server.fastify.listen(config.port, "0.0.0.0", (err, address) => {
   if (err) throw err;
-  fastify.log.info(`server listening on ${address}`);
+  server.fastify.log.info(`server listening on ${address}`);
 });

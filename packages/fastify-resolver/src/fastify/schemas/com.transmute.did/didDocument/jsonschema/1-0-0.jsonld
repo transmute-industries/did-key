@@ -1,5 +1,5 @@
 {
-  "$schema": "https://did-key.transmute.org/schemas/com.transmute.self-desc/schema/jsonschema/1-0-0.jsonld#",
+  "$schema": "https://did-key.web.app/schemas/com.transmute.self-desc/schema/jsonschema/1-0-0.jsonld#",
   "self": {
     "vendor": "com.transmute.did",
     "name": "didDocument",
