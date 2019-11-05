@@ -46,7 +46,7 @@ class SchemaManager {
       this.all[key] = {
         name: key,
         path: schema.$id
-          .replace("https://did-key.web.app/schemas", "")
+          .replace("https://did-key.web.app/api/schemas", "")
           .replace("#", ""),
         schema: modifiedSchema
       };

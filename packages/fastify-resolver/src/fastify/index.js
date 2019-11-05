@@ -43,7 +43,7 @@ class DidKeyFastifyResolver {
     // app.register(require("fastify-cors"));
 
     // Add routes
-    app.register(require("./routes"), { prefix: "/" });
+    app.register(require("./routes"), { prefix: "/api" });
 
     this.fastify = app;
     this.handleRequest = handleRequest;
