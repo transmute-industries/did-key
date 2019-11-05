@@ -1,7 +1,7 @@
 const fastifyPlugin = require("fastify-plugin");
 const didKeyResolver = require("./didKeyResolver");
 
-const SchemaManager = require("../schemas");
+const schemas = require("../schemas");
 
 async function servicesConnector(fastify, options) {
   // TODO: use options to help with Service Constructors
@@ -10,7 +10,7 @@ async function servicesConnector(fastify, options) {
   //   const db = await MongoClient.connect(url, options);
 
   const services = {
-    schemas: new SchemaManager(options.baseUrl),
+    schemas: schemas,
     resolver: didKeyResolver
   };
   fastify.decorate("svcs", services);

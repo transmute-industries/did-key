@@ -1,6 +1,11 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build",
+    "deploy": "firebase deploy"
+  },
   "devDependencies": {
     "firebase-tools": "^7.6.2",
     "lerna": "^3.16.4"

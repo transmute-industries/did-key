@@ -1,6 +1,6 @@
 {
   "did_key": {
     "server_env": "FIREBASE",
-    "base_url": "https://did-key.web.app/"
+    "base_url": "https://did-key.web.app"
   }
 }

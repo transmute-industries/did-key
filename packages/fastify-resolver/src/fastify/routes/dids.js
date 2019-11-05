@@ -26,7 +26,7 @@ module.exports = function(fastify, opts, done) {
             description: "A DID Document",
             type: "object",
             // Avoid issues with SDJS, and include useful description here ^
-            properties: schemas.all.didDocument.schema.properties
+            properties: schemas.didDocument.properties
           }
         }
       }

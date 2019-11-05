@@ -11,20 +11,6 @@ describe("DID Key Resolver", () => {
     await server.fastify.ready();
   });
 
-  test("Can get meta schema", async () => {
-    const response = await request(server.fastify.server).get(
-      "/schemas/com.transmute.self-desc/schema/jsonschema/1-0-0.jsonld"
-    );
-    expect(response.statusCode).toBe(200);
-  });
-
-  test("Can get didDocument schema", async () => {
-    const response = await request(server.fastify.server).get(
-      "/schemas/com.transmute.did/didDocument/jsonschema/1-0-0.jsonld"
-    );
-    expect(response.statusCode).toBe(200);
-  });
-
   test("Can resolve a did:key", async () => {
     const response = await request(server.fastify.server).get(
       "/dids/did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH"
