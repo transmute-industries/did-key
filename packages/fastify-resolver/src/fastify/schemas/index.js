@@ -42,6 +42,7 @@ class SchemaManager {
         $schema: schema.$schema.replace("https://did-key.web.app", this.baseUrl)
       };
       delete modifiedSchema.$id;
+
       this.all[key] = {
         name: key,
         path: schema.$id

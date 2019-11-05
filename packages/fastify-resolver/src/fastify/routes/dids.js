@@ -22,7 +22,12 @@ module.exports = function(fastify, opts, done) {
           }
         },
         response: {
-          200: schemas.all.didDocument.schema
+          200: {
+            description: "A DID Document",
+            type: "object",
+            // Avoid issues with SDJS, and include useful description here ^
+            properties: schemas.all.didDocument.schema.properties
+          }
         }
       }
     },

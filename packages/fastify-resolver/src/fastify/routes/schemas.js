@@ -8,10 +8,7 @@ module.exports = function(fastify, opts, done) {
       schema.path,
       {
         schema: {
-          tags: ["Schema"],
-          response: {
-            // 200: schema
-          }
+          tags: ["Schema"]
         }
       },
       async (req, reply) => {

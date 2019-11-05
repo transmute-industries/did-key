@@ -40,7 +40,7 @@ class DidKeyFastifyResolver {
     });
 
     // Enable CORS
-    app.register(require("fastify-cors"));
+    // app.register(require("fastify-cors"));
 
     // Add routes
     app.register(require("./routes"), { prefix: "/" });
