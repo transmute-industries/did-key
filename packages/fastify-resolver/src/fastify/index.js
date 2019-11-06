@@ -22,6 +22,11 @@ class DidKeyFastifyResolver {
 
     const app = fastify(opts);
 
+    // required to support post
+    app.addContentTypeParser("*", function(req, done) {
+      done(null, req);
+    });
+
     app.register(require("./services/services-connector"), {
       baseUrl: config.baseUrl
     });

@@ -37,5 +37,9 @@ module.exports = function(fastify, opts, done) {
     }
   );
 
+  fastify.post("/test", async (req, reply) => {
+    reply.send({ ok: true });
+  });
+
   done();
 };
