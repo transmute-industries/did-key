@@ -38,7 +38,15 @@ module.exports = function(fastify, opts, done) {
   );
 
   fastify.post("/test", async (req, reply) => {
-    reply.send({ ok: true });
+    console.log();
+    reply.send({
+      ok: true,
+      echo: {
+        // This should be done in app.addContentTypeParser("*", function(req, done) {
+        // doing it here just for demo purposes...
+        parsed: JSON.parse(req.body.rawBody.toString())
+      }
+    });
   });
 
   done();
