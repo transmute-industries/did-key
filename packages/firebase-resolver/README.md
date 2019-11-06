@@ -10,6 +10,7 @@ http://localhost:5010/did-key/us-central1/main/api/dids/did:key:z6MkpTHR8VNsBxYA
 
 ```
 curl -X POST http://localhost:5010/did-key/us-central1/main/api/dids/test
+curl -X POST http://did-key.web.app/api/dids/test
 ```
 
 ### Set your Firebase Config
