@@ -15,7 +15,7 @@ class DidKeyFastifyResolver {
     };
 
     if (config.serverEnv === "FIREBASE") {
-      opts = { serverFactory };
+      opts = { serverFactory, modifyCoreObjects: false };
     } else if (config.serverEnv === "STANDALONE") {
       opts = { logger: false };
     }
@@ -24,6 +24,7 @@ class DidKeyFastifyResolver {
 
     // required to support post
     app.addContentTypeParser("*", function(req, done) {
+      console.log("do parsing here?", req.headers);
       done(null, req);
     });
 
