@@ -2,16 +2,21 @@ import history from "../../store/history";
 
 const primarySearchAccountMenu = [
   {
+    label: "Home",
+    onClick: () => {
+      history.push("/");
+    }
+  },
+  {
     label: "Keystore",
     onClick: () => {
       history.push("/keystore");
     }
   },
-
   {
-    label: "Home",
+    label: "Source Code",
     onClick: () => {
-      history.push("/");
+      window.open("https://github.com/transmute-industries/did-key", "_blank");
     }
   }
 ];

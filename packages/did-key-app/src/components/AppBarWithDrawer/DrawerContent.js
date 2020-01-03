@@ -58,6 +58,14 @@ const sideMenuPrimaryItem = [
     onClick: () => {
       window.open("https://did-key.web.app/api/docs", "_blank");
     }
+  },
+  {
+    label: "Source Code",
+    icon: <CodeIcon />,
+    showForRoles: ["tier0", "tier1", "tier2"],
+    onClick: () => {
+      window.open("https://github.com/transmute-industries/did-key", "_blank");
+    }
   }
 ];
 
