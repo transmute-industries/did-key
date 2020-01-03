@@ -1,9 +1,9 @@
 {
   "functions": {
-    "source": "./packages/firebase-resolver"
+    "source": "./packages/did-key-firebase-resolver"
   },
   "hosting": {
-    "public": "./packages/pwa/build",
+    "public": "./packages/did-key-app/build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       {
@@ -30,7 +30,7 @@
       },
       {
         "source": "**",
-        "destination": "/api/docs"
+        "destination": "/index.html"
       }
     ]
   }
