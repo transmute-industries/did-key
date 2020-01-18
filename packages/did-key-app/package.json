@@ -14,7 +14,7 @@
     "clsx": "^1.0.4",
     "connected-react-router": "^6.5.2",
     "crypto-ld": "^3.7.0",
-    "did-method-key": "^0.2.0",
+    "did-method-key": "^0.3.0",
     "edv-client": "^2.0.0",
     "env-cmd": "^10.0.1",
     "history": "^4.10.1",

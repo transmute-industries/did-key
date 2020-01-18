@@ -6,12 +6,12 @@ import DIDWallet from "@transmute/did-wallet";
 const { keyToDidDoc } = didMethodKey.driver();
 
 export default withHandlers({
-  doImportKeystore: ({ setEdvProp }) => async data => {
-    setEdvProp({
+  doImportKeystore: ({ setKeystoreProp }) => async data => {
+    setKeystoreProp({
       keystore: { data }
     });
   },
-  doCreateWalletKeystore: ({ setEdvProp }) => async () => {
+  doCreateWalletKeystore: ({ setKeystoreProp }) => async () => {
     const ed25519Key = await Ed25519KeyPair.generate();
     const doc = keyToDidDoc(ed25519Key);
     const wall = DIDWallet.create({
@@ -22,12 +22,12 @@ export default withHandlers({
           didPublicKeyEncoding: "publicKeyBase58",
           publicKey: ed25519Key.publicKeyBase58,
           privateKey: ed25519Key.privateKeyBase58,
-          tags: ["Ed25519VerificationKey2018", doc.id, "web"],
+          tags: ["Ed25519VerificationKey2018", doc.publicKey[0].id, "web"],
           notes: ""
         }
       ]
     });
-    setEdvProp({
+    setKeystoreProp({
       keystore: {
         data: {
           keys: wall.keys
@@ -35,19 +35,31 @@ export default withHandlers({
       }
     });
   },
-  doDeleteKeystore: ({ setEdvProp }) => async () => {
-    setEdvProp({
+  doUpdateKeystore: ({ setKeystoreProp }) => async keystoreString => {
+    const wall = DIDWallet.create({
+      keys: Object.values(JSON.parse(keystoreString))
+    });
+    setKeystoreProp({
+      keystore: {
+        data: {
+          keys: wall.keys
+        }
+      }
+    });
+  },
+  doDeleteKeystore: ({ setKeystoreProp }) => async () => {
+    setKeystoreProp({
       keystore: null
     });
   },
-  doToggleKeystore: ({ keystore, setEdvProp }) => async password => {
-    setEdvProp({ loading: true });
+  doToggleKeystore: ({ keystore, setKeystoreProp }) => async password => {
+    setKeystoreProp({ loading: true });
     try {
       let message;
       if (typeof keystore.keystore.data === "string") {
         const wall = DIDWallet.create(keystore.keystore.data);
         wall.unlock(password);
-        setEdvProp({
+        setKeystoreProp({
           keystore: {
             data: {
               keys: wall.keys
@@ -60,7 +72,7 @@ export default withHandlers({
           keys: Object.values(keystore.keystore.data.keys)
         });
         wall.lock(password);
-        setEdvProp({
+        setKeystoreProp({
           keystore: {
             data: wall.ciphered
           }
@@ -71,6 +83,6 @@ export default withHandlers({
     } catch (e) {
       console.error(e);
     }
-    setEdvProp({ loading: false });
+    setKeystoreProp({ loading: false });
   }
 });

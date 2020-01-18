@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
 import clsx from "clsx";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -7,6 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Card from "@material-ui/core/Card";
 import Chip from "@material-ui/core/Chip";
 
+import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -16,7 +18,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
+import { red, blue } from "@material-ui/core/colors";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -53,9 +55,6 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: "rotate(180deg)"
-  },
-  avatar: {
-    backgroundColor: red[500]
   }
 }));
 
@@ -82,11 +81,24 @@ function KeystoreStatusIcon({ status }) {
     case "create":
       return <Create />;
     case "locked":
-      return <LockOpen />;
-    case "unlocked":
       return <Lock />;
+    case "unlocked":
+      return <LockOpen />;
     default:
-      return <NoteAdd />;
+      return <LockOpen />;
+  }
+}
+
+function keyStoreStatusColor({ status }) {
+  switch (status) {
+    case "empty":
+      return blue[500];
+    case "locked":
+      return blue[500];
+    case "unlocked":
+      return red[500];
+    default:
+      return red[500];
   }
 }
 
@@ -98,7 +110,8 @@ export default function KeystoreCard({
   doImportKeystore,
   doDeleteKeystore,
   doCreateWalletKeystore,
-  onOpenKeystoreLockDialog
+  onOpenKeystoreLockDialog,
+  onOpenKeystoreEditDialog
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -137,6 +150,18 @@ export default function KeystoreCard({
         type="file"
       />
       <CardHeader
+        avatar={
+          <Avatar
+            aria-label="recipe"
+            style={{
+              backgroundColor: keyStoreStatusColor({ status })
+            }}
+          >
+            <KeystoreStatusIcon status={status} />
+          </Avatar>
+        }
+        title={title}
+        // subheader={status}
         action={
           <React.Fragment>
             {status === "empty" ? (
@@ -167,6 +192,17 @@ export default function KeystoreCard({
                   >
                     Delete
                   </MenuItem>
+                  {status === "unlocked" && (
+                    <MenuItem
+                      onClick={() => {
+                        onOpenKeystoreEditDialog();
+                        handleClose();
+                      }}
+                    >
+                      Edit
+                    </MenuItem>
+                  )}
+
                   <MenuItem
                     onClick={() => {
                       onOpenKeystoreLockDialog();
@@ -180,7 +216,6 @@ export default function KeystoreCard({
             )}
           </React.Fragment>
         }
-        title={title}
       />
       {status !== "empty" && (
         <CardMedia

@@ -12,6 +12,7 @@ class App extends React.Component {
   async componentDidMount() {
     const edKey = await Ed25519KeyPair.generate();
     const doc = keyToDidDoc(edKey);
+    edKey.id = doc.publicKey[0].id;
     this.setState({
       key: edKey,
       doc,

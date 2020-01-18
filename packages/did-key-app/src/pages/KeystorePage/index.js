@@ -13,11 +13,7 @@ export default container(props => {
     <KeystorePage
       tmui={props.tmui}
       doSetTmuiProp={props.doSetTmuiProp}
-      keystore={props.keystore.keystore}
-      doImportKeystore={props.doImportKeystore}
-      doCreateWalletKeystore={props.doCreateWalletKeystore}
-      doToggleKeystore={props.doToggleKeystore}
-      doDeleteKeystore={props.doDeleteKeystore}
+      {...props}
     />
   );
 });

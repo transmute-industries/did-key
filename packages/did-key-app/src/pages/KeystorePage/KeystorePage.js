@@ -7,23 +7,9 @@ import WebKeystore from "../../components/WebKeystore/WebKeystore";
 
 // import history from "../../store/history";
 
-const KeystorePage = ({
-  tmui,
-  doSetTmuiProp,
-  keystore,
-  doImportKeystore,
-  doDeleteKeystore,
-  doToggleKeystore,
-  doCreateWalletKeystore
-}) => (
-  <BasePage tmui={tmui} doSetTmuiProp={doSetTmuiProp}>
-    <WebKeystore
-      keystore={keystore}
-      doImportKeystore={doImportKeystore}
-      doCreateWalletKeystore={doCreateWalletKeystore}
-      doDeleteKeystore={doDeleteKeystore}
-      doToggleKeystore={doToggleKeystore}
-    />
+const KeystorePage = props => (
+  <BasePage {...props}>
+    <WebKeystore {...props} />
   </BasePage>
 );
 

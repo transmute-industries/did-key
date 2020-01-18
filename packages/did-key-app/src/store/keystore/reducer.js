@@ -1,5 +1,5 @@
 import { handleActions } from "redux-actions";
-import { setEdvProp } from "./actions";
+import { setKeystoreProp } from "./actions";
 
 import config from "../../config";
 
@@ -10,7 +10,7 @@ const initialState = {
 
 export default handleActions(
   {
-    [setEdvProp]: (state, { payload }) => ({ ...state, ...payload })
+    [setKeystoreProp]: (state, { payload }) => ({ ...state, ...payload })
   },
   initialState
 );
