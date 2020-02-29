@@ -1,6 +1,6 @@
 {
   "name": "@transmute/did-key-app",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "homepage": "https://did-key.web.app/",
   "dependencies": {
@@ -14,7 +14,7 @@
     "clsx": "^1.0.4",
     "connected-react-router": "^6.5.2",
     "crypto-ld": "^3.7.0",
-    "did-method-key": "^0.3.0",
+    "did-method-key": "^0.5.1",
     "edv-client": "^2.0.0",
     "env-cmd": "^10.0.1",
     "history": "^4.10.1",
