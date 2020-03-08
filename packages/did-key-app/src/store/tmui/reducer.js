@@ -1,5 +1,5 @@
 import { handleActions } from "redux-actions";
-import { doSetTmuiProp } from "./actions";
+import { setTmuiProp } from "./actions";
 
 // TODO: UPDATE PLACEHOLDER
 const initialState = {
@@ -7,14 +7,14 @@ const initialState = {
   isSpeedDialogOpen: false,
   activeTabIndex: 0,
   currentRole: {
-    label: "CBP Admin",
-    value: "cbp_admin"
+    label: 'Tier 0',
+    value: 'tier0',
   }
 };
 
 export default handleActions(
   {
-    [doSetTmuiProp]: (state, { payload }) => ({ ...state, ...payload })
+    [setTmuiProp]: (state, { payload }) => ({ ...state, ...payload })
   },
   initialState
 );

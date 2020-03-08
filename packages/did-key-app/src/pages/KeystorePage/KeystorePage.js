@@ -15,7 +15,7 @@ const KeystorePage = props => (
 
 KeystorePage.propTypes = {
   tmui: PropTypes.any,
-  doSetTmuiProp: PropTypes.any,
+  setTmuiProp: PropTypes.any,
   keystore: PropTypes.any,
   doImportKeystore: PropTypes.any,
   onWalletDelete: PropTypes.any,

@@ -12,7 +12,7 @@ export default container(props => {
   return (
     <KeystorePage
       tmui={props.tmui}
-      doSetTmuiProp={props.doSetTmuiProp}
+      setTmuiProp={props.setTmuiProp}
       {...props}
     />
   );

@@ -1,25 +1,41 @@
 import jsonld from "jsonld";
+import didMethodKey from "did-method-key";
+// import { SEC_HEADERS } from "../config";
 
-import { SEC_HEADERS } from "../config";
+const didMethodKeyDriver = didMethodKey.driver();
 
-export default async (url, callback) => {
-  // TODO: use a switch, support universal resolver, etc...
-  // handle cloudflare access control.
-  if (url.includes("https://didedv.com")) {
-    const doc = await fetch(url, {
-      method: "GET",
-      cache: "no-cache",
-      // These headers are required while we have cloudflare access control on.
-      headers: {
-        "Content-Type": "application/json",
-        ...SEC_HEADERS
-      }
-    }).then(res => res.json());
-    return callback(null, {
+export default async (url) => {
+
+  let maybeCached = localStorage.getItem(url);
+  if (maybeCached){
+    console.log('using cache for: ', url)
+    return {
       contextUrl: null, // this is for a context via a link header
-      document: doc, // this is the actual document that was loaded
+      document: JSON.parse(maybeCached), // this is the actual document that was loaded
       documentUrl: url // this is the actual context URL after redirects
-    });
+    }
   }
-  return jsonld.documentLoaders.xhr()(url, callback);
+
+  if (url.indexOf('did:key') !== -1){
+    const didDocument = await didMethodKeyDriver.get({
+      did: url
+    });
+
+    localStorage.setItem(url, JSON.stringify(didDocument));
+    return {
+      contextUrl: null, // this is for a context via a link header
+      document: didDocument, // this is the actual document that was loaded
+      documentUrl: url // this is the actual context URL after redirects
+    }
+  }
+  
+  try {
+      console.log('downloading...', url);
+      let res = await jsonld.documentLoader(url);
+      localStorage.setItem(url, JSON.stringify(res.document));
+      return res;
+  } catch (e) {
+    console.error("No remote context support for " + url);
+  }
+  throw new Error("No custom context support for " + url);
 };

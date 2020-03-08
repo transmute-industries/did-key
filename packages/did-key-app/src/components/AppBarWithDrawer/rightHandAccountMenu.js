@@ -1,12 +1,20 @@
-import React from "react";
+import React from 'react';
 
+// import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import HomeIcon from "@material-ui/icons/Home";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import CodeIcon from "@material-ui/icons/Code";
 
-import history from "../../store/history";
+import history from '../../store/history';
 
-const primarySearchAccountMenuMobile = [
+const rightHandAccountMenu = [
+  // {
+  //   badgeContent: 0,
+  //   ariaLabel: 'scan qr code',
+  //   icon: <CameraAltIcon />,
+  //   label: 'Scan QR Code',
+  //   displaySmUp: true,
+  // },
   {
     badgeContent: 0,
     ariaLabel: "home",
@@ -36,4 +44,4 @@ const primarySearchAccountMenuMobile = [
   }
 ];
 
-export default primarySearchAccountMenuMobile;
+export default rightHandAccountMenu;

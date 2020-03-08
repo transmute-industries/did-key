@@ -1,147 +1,93 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
 
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import MoreIcon from "@material-ui/icons/MoreVert";
-
-import primarySearchAccountMenuMobile from "./primarySearchAccountMenuMobile";
-import primarySearchAccountMenu from "./primarySearchAccountMenu";
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    // display: 'flex',
   },
   grow: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
-  },
-
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 200
-    }
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
-  },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  hide: {
-    display: "none"
+    flexGrow: 1,
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
   },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
+
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+    },
   },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+
   content: {
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: drawerWidth,
+    },
+
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    marginLeft: -drawerWidth
   },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginLeft: 0
-  }
 }));
 
-function AppBarWithDrawer({ headerImage, headerText, drawer, content }) {
+function ResponsiveDrawer(props) {
+  const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -160,39 +106,40 @@ function AppBarWithDrawer({ headerImage, headerText, drawer, content }) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={'primary-search-account-menu'}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {primarySearchAccountMenu.map(i => {
-        return (
-          <MenuItem key={i.label} onClick={i.onClick}>
-            {i.label}
-          </MenuItem>
-        );
+      {props.rightHandAccountMenu.map(menuItem => {
+        if (!menuItem.displaySmUp) {
+          return (
+            <MenuItem key={menuItem.label} onClick={menuItem.onClick}>
+              {menuItem.label}
+            </MenuItem>
+          );
+        }
+        return '';
       })}
     </Menu>
   );
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={'primary-search-account-menu-mobile'}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {primarySearchAccountMenuMobile.map(i => {
+      {props.rightHandAccountMenu.map(i => {
         return (
           <MenuItem key={i.label} onClick={i.onClick}>
             <IconButton aria-label={i.ariaLabel} color="inherit">
@@ -210,66 +157,55 @@ function AppBarWithDrawer({ headerImage, headerText, drawer, content }) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        style={{ boxShadow: "none" }}
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
-      >
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
-
-          {headerImage ? (
+          {props.headerImage ? (
             <img
-              src={headerImage}
-              alt={headerText}
+              src={props.headerImage}
+              alt={props.headerText}
               className={classes.title}
-              style={{ height: "28px" }}
+              style={{ height: '28px' }}
             />
           ) : (
             <Typography className={classes.title} variant="h6" noWrap>
-              {headerText}
+              {props.headerText}
             </Typography>
           )}
-
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton
-              aria-label={primarySearchAccountMenuMobile[0].ariaLabel}
-              onClick={primarySearchAccountMenuMobile[0].onClick}
-              color="inherit"
-            >
-              <Badge color="secondary">
-                {primarySearchAccountMenuMobile[0].icon}
-              </Badge>
-            </IconButton>
-
-            <IconButton
-              aria-label={primarySearchAccountMenuMobile[1].ariaLabel}
-              color="inherit"
-              onClick={primarySearchAccountMenuMobile[1].onClick}
-            >
-              <Badge
-                badgeContent={primarySearchAccountMenuMobile[1].badgeContent}
-                color="secondary"
-              >
-                {primarySearchAccountMenuMobile[1].icon}
-              </Badge>
-            </IconButton>
+            {props.rightHandAccountMenu.map(menuItem => {
+              if (menuItem.displaySmUp) {
+                return (
+                  <IconButton
+                    key={menuItem.ariaLabel}
+                    aria-label={menuItem.ariaLabel}
+                    color="inherit"
+                  >
+                    <Badge
+                      color="secondary"
+                      badgeContent={menuItem.badgeContent}
+                    >
+                      {menuItem.icon}
+                    </Badge>
+                  </IconButton>
+                );
+              }
+              return '';
+            })}
 
             <IconButton
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
+              aria-controls={'primary-search-account-menu'}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
@@ -280,7 +216,7 @@ function AppBarWithDrawer({ headerImage, headerText, drawer, content }) {
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
-              aria-controls={mobileMenuId}
+              aria-controls={'primary-search-account-menu-mobile'}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
@@ -293,44 +229,52 @@ function AppBarWithDrawer({ headerImage, headerText, drawer, content }) {
       {renderMobileMenu}
       {renderMenu}
 
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        {drawer}
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        {content}
+      <nav className={classes.drawer} aria-label="drawer menu">
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden smUp implementation="css">
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {props.drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {props.drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <div style={{ maxWidth: '100%' }}>{props.content}</div>
       </main>
     </div>
   );
 }
 
-AppBarWithDrawer.propTypes = {
-  headerImage: PropTypes.any,
-  headerText: PropTypes.any,
+ResponsiveDrawer.propTypes = {
+  rightHandAccountMenu: PropTypes.any,
+  content: PropTypes.any,
   drawer: PropTypes.any,
-  content: PropTypes.any
+  headerImage: PropTypes.string,
+  headerText: PropTypes.string,
+  container: PropTypes.any,
 };
 
-export default AppBarWithDrawer;
+export default ResponsiveDrawer;
