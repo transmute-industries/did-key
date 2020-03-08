@@ -10,8 +10,8 @@ import history from "../../store/history";
 
 import RandomDIDKey from "../../components/RandomDIDKey/RandomDIDKey";
 
-const HomePage = ({ tmui, doSetTmuiProp }) => (
-  <BasePage tmui={tmui} doSetTmuiProp={doSetTmuiProp}>
+const HomePage = ({ tmui, setTmuiProp }) => (
+  <BasePage tmui={tmui} setTmuiProp={setTmuiProp}>
     <Typography paragraph>
       Use the data below or setup a keystore for use with other demos...
     </Typography>
@@ -32,7 +32,7 @@ const HomePage = ({ tmui, doSetTmuiProp }) => (
 
 HomePage.propTypes = {
   tmui: PropTypes.object,
-  doSetTmuiProp: PropTypes.func
+  setTmuiProp: PropTypes.func
 };
 
 export default HomePage;

@@ -1,17 +1,17 @@
 import { withHandlers } from "recompose";
 
 export default withHandlers({
-  doSetTmuiProp: ({ doSetTmuiProp }) => payload => {
-    doSetTmuiProp(payload);
+  setTmuiProp: ({ setTmuiProp }) => payload => {
+    setTmuiProp(payload);
   },
-  doToggleSpeedDial: ({ doSetTmuiProp }) => payload => {
-    doSetTmuiProp({ isSpeedDialogOpen: payload });
+  doToggleSpeedDial: ({ setTmuiProp }) => payload => {
+    setTmuiProp({ isSpeedDialogOpen: payload });
   },
-  doSelectActiveTab: ({ doSetTmuiProp }) => activeTabIndex => {
-    doSetTmuiProp({ activeTabIndex });
+  doSelectActiveTab: ({ setTmuiProp }) => activeTabIndex => {
+    setTmuiProp({ activeTabIndex });
   },
 
-  doFabClick: ({ doSetTmuiProp }) => context => {
-    doSetTmuiProp({ fabClick: context });
+  doFabClick: ({ setTmuiProp }) => context => {
+    setTmuiProp({ fabClick: context });
   }
 });

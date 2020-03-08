@@ -23,7 +23,7 @@ function TSnackbar(props) {
     if (reason === "clickaway") {
       return;
     }
-    props.doSetTmuiProp({
+    props.setTmuiProp({
       snackBarMessage: {
         ...props.tmui.snackBarMessage,
         open: false
@@ -54,7 +54,7 @@ function TSnackbar(props) {
 
 TSnackbar.propTypes = {
   tmui: PropTypes.object.isRequired,
-  doSetTmuiProp: PropTypes.func.isRequired
+  setTmuiProp: PropTypes.func.isRequired
 };
 
 export { TSnackbar as Snackbar };

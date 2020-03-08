@@ -8,5 +8,5 @@ import tmuiDuck from "../../store/tmui";
 const container = compose(tmuiDuck.container);
 
 export default container(props => {
-  return <HomePage tmui={props.tmui} doSetTmuiProp={props.doSetTmuiProp} />;
+  return <HomePage {...props} />;
 });

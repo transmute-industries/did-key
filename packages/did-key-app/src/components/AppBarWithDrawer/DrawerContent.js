@@ -1,18 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import List from "@material-ui/core/List";
+import List from '@material-ui/core/List';
 
 import CodeIcon from "@material-ui/icons/Code";
 import HomeIcon from "@material-ui/icons/Home";
-
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-
-import history from "../../store/history";
+import EnhancedEncryption from "@material-ui/icons/EnhancedEncryption";
+import history from '../../store/history';
 
 const sideMenuPrimaryItem = [
   {
@@ -23,7 +22,6 @@ const sideMenuPrimaryItem = [
       history.push("/");
     }
   },
-
   {
     label: "Keystore",
     icon: <VpnKeyIcon />,
@@ -33,15 +31,23 @@ const sideMenuPrimaryItem = [
     }
   },
   {
-    label: "DID Method Spec",
-    icon: <CodeIcon />,
+    label: "Offline PDF",
+    icon: <EnhancedEncryption />,
     showForRoles: ["tier0", "tier1", "tier2"],
     onClick: () => {
-      window.open("https://digitalbazaar.github.io/did-method-key/", "_blank");
+      history.push("/offline");
     }
   },
   {
-    label: "DID Method Driver",
+    label: "Method Spec",
+    icon: <CodeIcon />,
+    showForRoles: ["tier0", "tier1", "tier2"],
+    onClick: () => {
+      window.open("https://w3c-ccg.github.io/did-method-key/", "_blank");
+    }
+  },
+  {
+    label: "Method Driver",
     icon: <CodeIcon />,
     showForRoles: ["tier0", "tier1", "tier2"],
     onClick: () => {
@@ -69,13 +75,13 @@ const sideMenuPrimaryItem = [
   }
 ];
 
-function DrawerContent({ tmui, doSetTmuiProp }) {
-  const values = {
-    currentRole: {
-      label: "User",
-      value: "tier0"
-    }
-  };
+function DrawerContent({ tmui, setTmuiProp }) {
+  const [
+    values, 
+    // setValues
+  ] = React.useState({
+    currentRole: tmui.currentRole     
+  });
 
   return (
     <React.Fragment>
@@ -85,7 +91,7 @@ function DrawerContent({ tmui, doSetTmuiProp }) {
             return i.showForRoles.indexOf(values.currentRole.value) !== -1;
           })
           .map(i => (
-            <ListItem button key={i.label} onClick={i.onClick}>
+            <ListItem button key={i.label}>
               <ListItemIcon>{i.icon}</ListItemIcon>
               <ListItemText primary={i.label} />
             </ListItem>
@@ -97,7 +103,7 @@ function DrawerContent({ tmui, doSetTmuiProp }) {
 
 DrawerContent.propTypes = {
   tmui: PropTypes.any,
-  doSetTmuiProp: PropTypes.any
+  setTmuiProp: PropTypes.any,
 };
 
 export default DrawerContent;
