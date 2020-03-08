@@ -91,7 +91,7 @@ function DrawerContent({ tmui, setTmuiProp }) {
             return i.showForRoles.indexOf(values.currentRole.value) !== -1;
           })
           .map(i => (
-            <ListItem button key={i.label}>
+            <ListItem button key={i.label} onClick={i.onClick}>
               <ListItemIcon>{i.icon}</ListItemIcon>
               <ListItemText primary={i.label} />
             </ListItem>
