@@ -40,16 +40,14 @@ const defaultVc = {
     "https://www.w3.org/2018/credentials/v1",
     "https://www.w3.org/2018/credentials/examples/v1"
   ],
-  id: "http://example.gov/vc/1",
-  type: ["VerifiableCredential", "UniversityDegreeCredential"],
+  id: "http://ex.gov/vc/1",
+  type: ["VerifiableCredential"],
   issuer: "https://example.edu",
   issuanceDate: new Date().toISOString(),
   credentialSubject: {
-    id: "did:example:1",
-    degree: {
+      id: "did:ex:2",
       type: "BachelorDegree",
-      name: "Cyber Security"
-    }
+      name: "CyS"
   }
 }
 
@@ -121,7 +119,6 @@ const OfflinePDF = ({ tmui, setTmuiProp }) => {
   //     });
   //     console.log(result)
   //   })();
-   
   // })
 
   const [state, setState] = React.useState({
@@ -177,7 +174,7 @@ const OfflinePDF = ({ tmui, setTmuiProp }) => {
       return '';
     }
     return (
-        <ReactToPdf filename="did-key-verifiable-credential.pdf" options={options} x={-60} y={-100}>
+        <ReactToPdf filename="did-key-verifiable-credential.pdf" options={options} x={-55} y={0}>
         {({toPdf, targetRef}) =>  {
           window.toPdf = toPdf;
           return (
@@ -185,7 +182,7 @@ const OfflinePDF = ({ tmui, setTmuiProp }) => {
           <div style={{display: 'block', padding: '16px', width: '500px', height: '600px', textAlign: 'center', margin: '0 auto', marginBottom: '-100px'}} ref={targetRef} >
             <Typography variant={'h5'}>Credential</Typography>
             <div>
-              <QR data={vc} options={qrOptions}  />
+              <QR data={vc} options={{...qrOptions, padding: 8}}  />
             </div>
             <Typography variant={'caption'}>{vc.id}</Typography>
           </div>
@@ -301,15 +298,13 @@ const OfflinePDF = ({ tmui, setTmuiProp }) => {
           <ScanQRCodeDialog
             open={isScanQrCodeDialogOpen}
             onSubmit={async (data)=>{
-              if (data.credentialSubject){
-            
+              if (data.proof){
                 const suite = new Ed25519Signature2018({});
                 const result = await vcjs.verify({
                   credential: data,
                   documentLoader: documentLoader,
                   suite
                 });
-            
                 setState({
                   ...state,
                   vc: data,
@@ -343,6 +338,7 @@ const OfflinePDF = ({ tmui, setTmuiProp }) => {
             }}
             onClose={() => {
               setState({
+                ...state,
                 isScanQrCodeDialogOpen: false,
               });
             }}

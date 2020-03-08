@@ -41,7 +41,8 @@ class ScanQRCodeDialog extends React.Component {
             <Grid container>
               <Grid item xs={12} sm={4}>
                 <QrReader
-                  delay={300}
+                  delay={100}
+                  resolution={800}
                   onError={() => {
                     // do nothing
                   }}
